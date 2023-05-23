@@ -44,7 +44,6 @@ app.use(function(err: HttpError, req: Request, res: Response, next: NextFunction
 
 const port = process.env.PORT || 3000
 
-const MONGO_URL = "mongodb+srv://sofiyyahabidoye:sofiyyah@cluster1.qndy2vq.mongodb.net/test"
 
 mongoose.Promise = Promise;
 mongoose.connect(MONGO_URL).then(()=> {
