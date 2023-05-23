@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../stylesheets/dashboard.css">
+    <title>Dashboard</title>
+</head>
+<body>
+    <% if (message) { %>
+     <p id="user-greeting">
+        <h1 class="greetings">
+         <%= message %>
+        </h1>
+     </p>
+    <% } else { %>
+     
+    <% } %>
+    <div>
+        <div class="container">
+            <p>
+                <h1 id="dashboard">
+                    <% if (name) { %>
+                        <%= name %> Dashboard
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        
+                    <% } else { %>
+                        Dashboard
+                    <% } %>
+                </h1>
+                
+            </p>
+            <div class="addNote">
+                <% if (note) { %>
+                    <% note.forEach(element => { %>
+                        <div class="note">
+                            <p>Title: <%= element.title  %> </p> 
+                            <p>Due Date: <%= element.dueDate  %> </p> 
+                            <p>Status: <%= element.status  %> </p> 
+    
+                            <div>
+                                <a href="/delete/<%= encodeURIComponent(element.title) %>"> <button> <img src="/images/trash.png" alt="delete" width="20" height="20"> </button> </a> 
+                                <a href="/update/<%= encodeURIComponent(element.title) %>"> <button><img src="/images/updated.png" alt="update" width="20" height="20"> </button> </a> 
+                                <a href="/view/<%= encodeURIComponent(element.title) %>"> <button><img src="/images/visual.png" alt="view" width="20" height="20"></button> </a> 
+                            </div>
+                        </div>
+                        
+                    <% }) %>
+
+                 
+                <% } %>
+                <div class="pagination">
+                    <% if(currentPage > 1) { %>
+                      <a href="/dashboard?page=<%= parseInt(currentPage) - 1 %>">Previous</a>
+                    <% } %>
+                  
+                    <% for(let i=1; i<=pageCount; i++) { %>
+                      <% if(i == currentPage) { %>
+                        <span class="current-page"><%= i %></span>
+                      <% } else { %>
+                        <a href="/dashboard?page=<%= i %>"><%= i %></a>
+                      <% } %>
+                    <% } %>
+                  
+                    <% if(currentPage < pageCount) { %>
+                      <a href="/dashboard?page=<%= parseInt(currentPage) + 1 %>">Next</a>
+                    <% } %>
+                </div>
+                
+            </div>
+            <a href="/note"> <button id="note">Add a Note</button> </a>
+        </div>
+    </div>
+</body>
+</html>
